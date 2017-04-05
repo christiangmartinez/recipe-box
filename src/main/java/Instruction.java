@@ -12,7 +12,7 @@ public class Instruction {
   private int id;
   private int recipe_id;
 
-  public Instruction(String name) {
+  public Instruction(String name, int recipe_id) {
     this.name = name;
     this.recipe_id = recipe_id;
   }
@@ -25,7 +25,7 @@ public class Instruction {
     return id;
   }
 
-  public int getInstructionInstructionId() {
+  public int getInstructionRecipeId() {
     return recipe_id;
   }
 
@@ -49,9 +49,10 @@ public class Instruction {
 
   public void saveInstruction() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO instructions (name) VALUES (:name);";
+      String sql = "INSERT INTO instructions (name, recipe_id) VALUES (:name, :recipe_id);";
       this.id = (int) con.createQuery(sql, true)
         .addParameter("name", this.name)
+        .addParameter("recipe_id", recipe_id)
         .executeUpdate()
         .getKey();
     }

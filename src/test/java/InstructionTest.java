@@ -14,7 +14,7 @@ public class InstructionTest {
 
   @Before
   public void setUp() {
-    testInstruction = new Instruction("Bake");
+    testInstruction = new Instruction("Bake", 1);
     testInstruction.saveInstruction();
   }
 
@@ -29,11 +29,12 @@ public class InstructionTest {
   @Test
   public void getters_returnObjectVariables() {
     assertEquals("Bake", testInstruction.getInstructionName());
+    assertEquals(1, testInstruction.getInstructionRecipeId());
   }
 
   @Test
   public void returnsAllInstructions_True() {
-    Instruction testInstruction2 = new Instruction("Bake");
+    Instruction testInstruction2 = new Instruction("Bake", 1);
     testInstruction2.saveInstruction();
     assertTrue(Instruction.allInstructions().contains(testInstruction2));
   }
@@ -46,7 +47,7 @@ public class InstructionTest {
 
   @Test
   public void savesAllInstructions_True() {
-    Instruction testInstruction2 = new Instruction("Bake");
+    Instruction testInstruction2 = new Instruction("Bake", 1);
     testInstruction2.saveInstruction();
     assertTrue(testInstruction2.equals(Instruction.allInstructions().get(1)));
   }
@@ -58,7 +59,7 @@ public class InstructionTest {
 
    @Test
    public void findsInstructionBasedOnId_TR2() {
-     Instruction testInstruction2 = new Instruction("Bake");
+     Instruction testInstruction2 = new Instruction("Bake", 1);
      testInstruction2.saveInstruction();
      assertEquals(testInstruction2, Instruction.findInstruction(testInstruction2.getInstructionId()));
    }
