@@ -85,4 +85,24 @@ public class RecipeTest {
      assertEquals(null, Recipe.findRecipe(testRecipeId));
    }
 
+   @Test
+   public void getInstructions_returnsListOfInstructions() {
+     Instruction testInstruction = new Instruction("Bake", testRecipe.getRecipeId());
+     testInstruction.saveInstruction();
+     Instruction secondInstruction = new Instruction("Fry", testRecipe.getRecipeId());
+     secondInstruction.saveInstruction();
+     Instruction[] instructions = new Instruction[] {testInstruction, secondInstruction};
+     assertTrue(testRecipe.getInstructions().containsAll(Arrays.asList(instructions)));
+   }
+
+   @Test
+   public void getIngredients_returnsListOfIngredients() {
+     Ingredient testIngredient = new Ingredient("Saffron", testRecipe.getRecipeId());
+     testIngredient.saveIngredient();
+     Ingredient secondIngredient = new Ingredient("Cumin", testRecipe.getRecipeId());
+     secondIngredient.saveIngredient();
+     Ingredient[] ingredients = new Ingredient[] {testIngredient, secondIngredient};
+     assertTrue(testRecipe.getIngredients().containsAll(Arrays.asList(ingredients)));
+   }
+
 }

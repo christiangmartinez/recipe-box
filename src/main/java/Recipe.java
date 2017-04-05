@@ -93,4 +93,22 @@ public class Recipe {
     }
   }
 
+  public List<Instruction> getInstructions() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM instructions WHERE recipe_id = :id;";
+      return con.createQuery(sql)
+      .addParameter("id", this.id)
+      .executeAndFetch(Instruction.class);
+    }
+  }
+
+  public List<Ingredient> getIngredients() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT * FROM ingredients WHERE recipe_id = :id;";
+      return con.createQuery(sql)
+      .addParameter("id", this.id)
+      .executeAndFetch(Ingredient.class);
+    }
+  }
+
 }
