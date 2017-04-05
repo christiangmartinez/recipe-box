@@ -106,6 +106,12 @@ public class RecipeTest {
    }
 
    @Test
-   public void 
+   public void getCategories_returnsAllCategories_List() {
+     Category testCategory = new Category("Dessert");
+     testCategory.saveCategory();
+     testCategory.addRecipe(testRecipe);
+     List savedCategories = testRecipe.getCategories();
+     assertEquals(1, savedCategories.size());
+   }
 
 }

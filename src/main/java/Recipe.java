@@ -111,4 +111,24 @@ public class Recipe {
     }
   }
 
+  public List<Category> getCategories() {
+    try(Connection con = DB.sql2o.open()) {
+      String joinQuery = "SELECT category_id FROM tags WHERE recipe_id = :recipe_id;";
+      List<Integer> categoryIds = con.createQuery(joinQuery)
+      .addParameter("recipe_id", this.getRecipeId())
+      .executeAndFetch(Integer.class);
+
+      List<Category> categories = new ArrayList<Category>();
+
+      for (Integer categoryId : categoryIds) {
+        String categoryQuery = "SELECT * FROM categories WHERE id = :categoryId;";
+        Category category = con.createQuery(categoryQuery)
+        .addParameter("categoryId", categoryId)
+        .executeAndFetchFirst(Category.class);
+      categories.add(category);
+      }
+      return categories;
+    }
+  }
+
 }
