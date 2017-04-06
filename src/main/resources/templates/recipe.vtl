@@ -1,5 +1,8 @@
 <!--recipe.vtl-->
 <h2>$recipe.getRecipeName()</h2>
+#foreach ($category in $recipe.getCategories())
+<h4>$category.getCategoryName()</h4>
+#end
 
 <h3>Ingredients</h3>
 <ul>
@@ -27,6 +30,19 @@
     <input id="instructionName" name="instructionName" type="text" class="form-control" required>
   </div>
   <button type="submit" class="btn btn-warning">Add instruction</button>
+</form>
+
+<h3>Category</h3>
+<form id="instructionForm" action="/recipes/$recipe.getRecipeId()/category" method="post">
+  <div class="form-group">
+    <label for="categoryId">Select a List</label>
+    <select id='categoryId' name='categoryId' type='text'>
+      #foreach($category in $categories)
+        <option value="$category.getCategoryId()">$category.getCategoryName()</option>
+      #end
+    </select>
+  </div>
+  <button type="submit" class="btn btn-warning">Add category to $recipe.getRecipeName()</button>
 </form>
 
 <!--recipe.vtl-->

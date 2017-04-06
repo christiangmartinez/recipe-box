@@ -21,6 +21,7 @@ public class App {
       Map<String, Object> model = new HashMap<String, Object>();
       Recipe recipe = Recipe.findRecipe(Integer.parseInt(request.params(":recipe_id")));
       model.put("recipe", recipe);
+      model.put("categories", Category.allCategories());
       model.put("ingredients", Ingredient.allIngredients());
       model.put("instructions", Instruction.allInstructions());
       model.put("template", "templates/recipe.vtl");
@@ -55,6 +56,26 @@ public class App {
       String instructionName = request.queryParams("instructionName");
       Instruction newInstruction = new Instruction(instructionName, recipe.getRecipeId());
       newInstruction.saveInstruction();
+      String url = String.format("/recipes/" + recipe.getRecipeId());
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("/category", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      String categoryName = request.queryParams("categoryName");
+      Category newCategory = new Category(categoryName);
+      newCategory.saveCategory();
+      String url = String.format("/");
+      response.redirect(url);
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    post("recipes/:recipe_id/category", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      Recipe recipe = Recipe.findRecipe(Integer.parseInt(request.params(":recipe_id")));
+      Category category = Category.findCategory(Integer.parseInt(request.queryParams("categoryId")));
+      category.addRecipe(recipe);
       String url = String.format("/recipes/" + recipe.getRecipeId());
       response.redirect(url);
       return new ModelAndView(model, layout);
