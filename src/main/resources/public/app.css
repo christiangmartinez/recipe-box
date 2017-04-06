@@ -1,3 +1,63 @@
-/*#addRecipe {
-  display: none;
-}*/
+body {
+  background-image: url(http://makeandtell.com/wp-content/uploads/2016/06/deckyourdesktop_june2016_widescreen.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+}
+
+h1{
+  font-family: 'Pacifico', cursive;
+  font-size: 80px;
+}
+
+h1 small {
+  font-size: 40px;
+  color: white;
+  text-shadow: 3px 3px black;
+}
+
+h2 {
+  font-family: 'Pacifico', cursive;
+}
+
+h3 {
+  font-family: 'Pacifico', cursive;
+}
+
+h4 {
+  font-family: 'Pacifico', cursive;
+}
+
+.panel-heading {
+  font-family: 'Pacifico', cursive;
+  text-shadow: 2px 2px black;
+}
+
+.panel-primary .panel-heading {
+  background-color: #f8b44d;
+}
+
+.panel-primary {
+  border-color: #f8b44d;
+}
+
+.panel-success .panel-heading {
+  background-color: #02aca1;
+  color: white;
+}
+
+.panel-success {
+  border-color: #02aca1;
+}
+
+.page-header {
+  border-bottom: none;
+}
+
+#background {
+  min-height: 100vh;
+  background-color: #f7bfda;
+  opacity: .91;
+}
