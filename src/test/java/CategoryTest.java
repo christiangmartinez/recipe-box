@@ -78,6 +78,15 @@ public class CategoryTest {
    }
 
    @Test
+   public void deleteCategory_deletesAllTagsAssociations() {
+     Recipe testRecipe = new Recipe("Cake", 10);
+     testRecipe.saveRecipe();
+     testCategory.addRecipe(testRecipe);
+     testCategory.deleteCategory();
+     assertEquals(0, testRecipe.getCategories().size());
+   }
+
+   @Test
    public void addRecipeToCategory_True() {
      Recipe testRecipe = new Recipe("Cake", 10);
      testRecipe.saveRecipe();
@@ -98,4 +107,13 @@ public class CategoryTest {
      assertEquals(savedRecipes.size(), 2);
    }
 
+   @Test
+   public void removeRecipe_removesRecipeFromCategory() {
+     Recipe testRecipe = new Recipe("Cookies", 8);
+     testRecipe.saveRecipe();
+     testCategory.addRecipe(testRecipe);
+     testCategory.removeRecipe(testRecipe);
+     List savedRecipes = testCategory.getRecipes();
+     assertEquals(0, savedRecipes.size());
+   }
 }

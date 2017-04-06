@@ -90,6 +90,10 @@ public class Recipe {
       con.createQuery(sql)
       .addParameter("id", this.id)
       .executeUpdate();
+      String joinDeleteQuery = "DELETE FROM tags WHERE recipe_id = :recipeId;";
+      con.createQuery(joinDeleteQuery)
+      .addParameter("recipeId", this.getRecipeId())
+      .executeUpdate();
     }
   }
 
@@ -128,6 +132,16 @@ public class Recipe {
       categories.add(category);
       }
       return categories;
+    }
+  }
+
+  public void removeCategory(Category category) {
+    try(Connection con = DB.sql2o.open()) {
+      String joinRemovalQuery = "DELETE FROM tags WHERE category_id = :categoryId AND recipe_id = :recipeId;";
+      con.createQuery(joinRemovalQuery)
+      .addParameter("categoryId", category.getCategoryId())
+      .addParameter("recipeId", this.getRecipeId())
+      .executeUpdate();
     }
   }
 

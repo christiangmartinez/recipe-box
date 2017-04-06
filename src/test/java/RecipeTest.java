@@ -86,6 +86,15 @@ public class RecipeTest {
    }
 
    @Test
+   public void deleteRecipe_deletesAllTagsAssociations() {
+     Category testCategory = new Category("Dessert");
+     testCategory.saveCategory();
+     testCategory.addRecipe(testRecipe);
+     testRecipe.deleteRecipe();
+     assertEquals(0, testCategory.getRecipes().size());
+   }
+
+   @Test
    public void getInstructions_returnsListOfInstructions() {
      Instruction testInstruction = new Instruction("Bake", testRecipe.getRecipeId());
      testInstruction.saveInstruction();
@@ -112,6 +121,16 @@ public class RecipeTest {
      testCategory.addRecipe(testRecipe);
      List savedCategories = testRecipe.getCategories();
      assertEquals(1, savedCategories.size());
+   }
+
+   @Test
+   public void removeCategory_removesAssociationWithCategory() {
+     Category testCategory = new Category("Gluten-Free");
+     testCategory.saveCategory();
+     testCategory.addRecipe(testRecipe);
+     testRecipe.removeCategory(testCategory);
+     List savedCategories = testRecipe.getCategories();
+     assertEquals(0, savedCategories.size());
    }
 
 }
